@@ -27,14 +27,28 @@
 
 \title{Dashboard Analítico em R para Visualização Interativa, Modelagem Temporal, e Geração de Relatórios Parametrizados \\ Aplicados aos Registros de Licenciamento de Veículos}
 
-\author{Gabriel Baia da Silva, Mário Diego Rocha Valente,\\
-Kleber Bezerra Salim, Tito Félix de Oliveira} 
 
-\address{Instituto de Ciências Exatas - Universidade Federal do Pará (UFPA)\\
-Belém -- PA -- Brasil
-  \email{gabrielkadran@hotmail.com, mario.valente@detran.pa.gov.br}  
-  \email{kleber.salim@detran.pa.gov.br, tito.felix@detran.pa.gov.br}
+\author{Gabriel Baia da Silva\inst{1}, Mário Diego Rocha Valente\inst{1},\\
+Kleber Bezerra Salim\inst{1}, Tito Félix de Oliveira\inst{1}, Vinicius Duarte Lima\inst{2}} 
+
+%\author{Gabriel Baia da Silva\inst{1}, Mário Diego Rocha Valente\inst{1}, Vinicius Duarte Lima\inst{2}} 
+
+\address{
+%Graduando em Sistemas de Informação - Universidade Federal do Pará (UFPA) 
+%\nextinstitute
+  Analista de Trânsito - Departamento de Trânsito do Estado do Pará (DETRAN-PA) 
+\nextinstitute
+  Professor Dr., Faculdade de Estatística - Universidade Federal do Pará (UFPA)
+  \email{gabriel@hotmail.com, diego.vatente@gmail.com, kleber.salim@detran.pa.gov.br}
+  \email{tito.felix@detran.pa.gov.br, viniciussantos@ufpa.br}
 }
+
+
+%\address{Instituto de Ciências Exatas - Universidade Federal do Pará (UFPA)\\
+%Belém -- PA -- Brasil
+%  \email{gabrielkadran@hotmail.com, mario.valente@detran.pa.gov.br}  
+ % \email{kleber.salim@detran.pa.gov.br, tito.felix@detran.pa.gov.br}
+%}
 
 \begin{document} 
 
@@ -215,14 +229,14 @@ Enquanto a LSTM possui um custo computacional maior devido ao uso de três \text
 
 \begin{figure}[htbp]
 \centering
-\resizebox{0.95\linewidth}{!}{%
+\resizebox{1.0\linewidth}{!}{%
 \begin{tikzpicture}[
     node distance=1cm and 1.2cm,
-    box/.style={draw, rectangle, rounded corners=3pt, minimum width=2.8cm, minimum height=1.3cm, align=center, font=\small},
+    box/.style={draw, rectangle, rounded corners=4pt, minimum width=2.8cm, minimum height=1.5cm, align=center, font=\small},
     arrow/.style={-Stealth, thick, color=black!80}
 ]
 % Nodes
-\node[box, fill=blue!10, draw=blue!40] (tensor) {\textbf{Tensor de Entrada 3D}\\ {\scriptsize (Modelagem de Dados)}\\[4pt] \footnotesize $[Amostras \times Passos \times Variáveis]$ \\ \footnotesize $(12180 \times 24 \times 145)$};
+\node[box, fill=blue!10, draw=blue!40] (tensor) {\textbf{Tensor de Entrada 3D}\\ {\scriptsize (Modelagem de Dados)}\\[6pt] \footnotesize $[Amostras \times Passos \times Variáveis]$ \\ \footnotesize $(12180 \times 24 \times 145)$};
 
 \node[box, right=of tensor, fill=green!10, draw=green!50] (gru) {\textbf{Camada GRU}\\ \footnotesize Extração de Padrões\\ \footnotesize Espaço-Temporais Ocultos};
 
@@ -306,7 +320,7 @@ Para garantir resiliência e alta disponibilidade, implementou-se um fluxo \text
 O repositório é gerenciado via \textit{GitLab} CI, automatizando os testes e enviando as imagens para o \textit{Registry}. O cluster Kubernetes \cite{burns2016borgomega} consome essas imagens, orquestrando réplicas de contêineres (\textit{Pods}) conforme a demanda. Um dos principais desafios técnicos de aplicações assíncronas baseadas em soquetes (Shiny) sob balanceamento de carga é a perda de estado. Isso foi solucionado configurando-se o \textit{Ingress Controller} do Kubernetes com "afinidade de sessão" (\textit{sticky sessions} via \textit{cookies}). Tal técnica, combinada com protocolo criptografado estrito (WSS - \textit{WebSocket Secure}), garante que requisições longas, como a compilação paralela de pesados PDFs em LaTeX pelo \textit{Quarto}, não sofram \textit{timeout} ou interrupções de rota.
 
 
-\section{Resultados}
+\section{Resultados e Discussão}
 
 O mapeamento descritivo da base foi integrado a quatro painéis estruturais principais. O painel de Resumo (Figura~\ref{fig:PainelResumo}) fornece os agregadores macroeconômicos (frota absoluta em tempo real, variação anual, categorias dominantes). Geograficamente, o painel central expõe as métricas em mapas reativos bidimensionais via \texttt{Leaflet}.
 
@@ -357,7 +371,7 @@ Entre os algoritmos estatísticos, o SARIMAX capturou de forma exímia os resíd
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.95\linewidth]{imagens/GraficoSarimax.png}
+    \includegraphics[width=1.1\linewidth]{imagens/GraficoSarimax.png}
     \caption{Previsão estatística de crescimento obtida com o modelo SARIMAX.}
     \label{fig:sarimax}
 \end{figure}
@@ -366,7 +380,7 @@ Nas redes neurais complexas, o cenário difere. O LSTM enfrentou o clássico dil
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[width=0.95\linewidth]{imagens/GraficoGRU.png}
+    \includegraphics[width=1.1\linewidth]{imagens/GraficoGRU.png}
     \caption{Projeção suavizada obtida com a arquitetura tensorial do GRU.}
     \label{fig:gru}
 \end{figure}
@@ -400,23 +414,23 @@ Em suma, ambos os modelos de ponta (SARIMAX para variância explicada e GRU para
 
 %----------------------------------------------------------------------------%
 
-\section{Discussão}
+%\section{Discussão}
 
 Do ponto de vista governamental, o acréscimo contínuo estimado e evidenciado pelos modelos preditivos na ordem de milhares de veículos gera consequências sistêmicas de amplo aspecto. Em primeira instância, o aumento acentuado da taxa de motorização acende o alerta para o esgotamento do planejamento urbano contemporâneo, pressionando diretamente as pastas governamentais a remodelar a estrutura rodoviária, semafórica e ampliar fortemente a disponibilidade de modais multimodais eficientes.
 
 A capacidade do algoritmo de Deep Learning (GRU) de atuar em rede com dados transversais e alcançar um erro marginal de apenas 5\% transforma-o num ativo crucial de inteligência institucional. Paralelamente, prever com precisão a malha veicular permite à Secretaria da Fazenda (SEFA) estimar, em níveis muito granulares, a arrecadação trilionária de licenciamentos e IPVA ao longo da década, alinhando despesas públicas a receitas fidedignas. O rigor estocástico garantido pelo SARIMAX isolando o choque econômico reitera a tese de que soluções algorítmicas conjuntas (ensemble thinking) são indispensáveis em análises estatais complexas.
 
-Ao converter tais fluxos matemáticos intrincados em um Dashboard Shiny aberto e relatórios *Quarto* dinâmicos gerados em segundos, o DETRAN-PA não apenas extinguiu o processamento manual moroso das coordenações de estatística, mas materializou o espírito central da Lei de Acesso à Informação. Trata-se do rompimento do sigilo burocrático e da ascensão de uma era onde a sociedade civil, a academia e o gestor visualizam assincronamente as mesmas inferências tecnológicas, promovendo uma fiscalização cidadã em larga escala sobre a evolução estrutural e os padrões de mobilidade da sua própria região.
+Ao converter tais fluxos matemáticos intrincados em um Dashboard Shiny aberto e relatórios Quarto dinâmicos gerados em segundos, o DETRAN-PA não apenas extinguiu o processamento manual moroso das coordenações de estatística, mas materializou o espírito central da Lei de Acesso à Informação. Trata-se do rompimento do sigilo burocrático e da ascensão de uma era onde a sociedade civil, a academia e o gestor visualizam assincronamente as mesmas inferências tecnológicas, promovendo uma fiscalização cidadã em larga escala sobre a evolução estrutural e os padrões de mobilidade da sua própria região.
 
 
-\section{Conclusão e Trabalhos Futuros}
+\section{Considerações e Trabalhos Futuros}
 
-Este trabalho propôs, implementou e validou uma arquitetura analítica escalável e reprodutível orientada à transparência ativa dos dados de trânsito do Estado do Pará. O arcabouço construído sob a linguagem R consolidou metodologias díspares de forma harmoniosa: consultas *lazy* em gigabytes de dados operadas via *Apache Arrow*, interatividade fluida orquestrada pelo reator web do *Shiny*, e editoração científica em *LaTeX/Quarto* de alta fidelidade entregue sem sobrecargas operacionais ao usuário final. 
+Este trabalho propôs, implementou e validou uma arquitetura analítica escalável e reprodutível orientada à transparência ativa dos dados de trânsito do Estado do Pará. O arcabouço construído sob a linguagem R consolidou metodologias díspares de forma harmoniosa: consultas lazy em gigabytes de dados operadas via Apache Arrow, interatividade fluida orquestrada pelo reator web do Shiny, e editoração científica em LaTeX/Quarto de alta fidelidade entregue sem sobrecargas operacionais ao usuário final. 
 
-Na seara preditiva, a orquestração do processamento tensorial de dados regionais permitiu que as Redes Neurais Recorrentes (GRU) se igualassem e superassem os algoritmos clássicos em termos de acurácia, mitigando os desafios de escassez histórica de municípios do interior. Do lado da Engenharia de Software, a estabilização do ecossistema via contêineres e topologia de alta disponibilidade no *Kubernetes* demonstra que ferramentas *open-source* de *Data Science* possuem absoluta robustez para sustentar sistemas de alto tráfego em governos.
+Na seara preditiva, a orquestração do processamento tensorial de dados regionais permitiu que as Redes Neurais Recorrentes (GRU) se igualassem e superassem os algoritmos clássicos em termos de acurácia, mitigando os desafios de escassez histórica de municípios do interior. Do lado da Engenharia de Software, a estabilização do ecossistema via contêineres e topologia de alta disponibilidade no Kubernetes demonstra que ferramentas \textit{open-source} de \textit{Data Science} possuem absoluta robustez para sustentar sistemas de alto tráfego em governos.
 
 \label{sec:conclui}
-Para trabalhos futuros, o horizonte natural desta arquitetura caminha em direção ao monitoramento contínuo da letalidade e sinistralidade de trânsito. Planeja-se a migração da arquitetura estática de banco relacional para uma infraestrutura de mensageria assíncrona, incorporando o \textit{Apache Kafka} para realizar inferências preditivas via *stream processing* (processamento em tempo real de acidentes e infrações). Essa evolução técnica alavancará a capacidade do Estado de realizar bloqueios rodoviários e operações táticas balizadas em predições baseadas em dados vivos e geolocalizados de mobilidade urbana.
+Para trabalhos futuros, o horizonte natural desta arquitetura caminha em direção ao monitoramento contínuo da letalidade e sinistralidade de trânsito. Planeja-se a migração da arquitetura estática de banco relacional para uma infraestrutura de mensageria assíncrona, incorporando o \textit{Apache Kafka} para realizar inferências preditivas via stream processing (processamento em tempo real de acidentes e infrações). Essa evolução técnica alavancará a capacidade do Estado de realizar bloqueios rodoviários e operações táticas balizadas em predições baseadas em dados vivos e geolocalizados de mobilidade urbana.
 
 \bibliographystyle{sbc}
 \bibliography{referencias}
